@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="buildfire" content="enablePluginJsonLoad">
+
+  <!-- JS -->
+  <script src="../../../scripts/buildfire.min.js"></script>
+	<script src="common/BFDataAccess.js"></script>
+	<script src="common/Settings.js"></script>
+	<script src="common/TipCalculator.js"></script>
+</head>
+<body>
+<div id="headerContent"></div>
+<h1>Enter Bill Amount</h1>
+<div class="row billAmount">
+	<div class="col-xs-3">
+		<input id="billAmount" type="number" class="form-control" value="0" placeholder="$100">
+	</div>
+</div>
+<ul id="tipLevelsContainer" class="list-group" ></ul>
+<h1 id="tipAmount"></h1>
+<script>
+
+	const headerContentElement= document.getElementById('headerContent');
+	const billAmount = document.getElementById('billAmount');
+	const tipLevelsContainer = document.getElementById('tipLevelsContainer');
+	const tipAmount = document.getElementById('tipAmount');
+	let settings = new Settings();
+	loadSettings();
+
+	billAmount.onchange =()=>{
+		tipAmount.innerHTML="";
+	}
+	function displayTipLevels() {
+		tipLevelsContainer.innerHTML = '';
+		settings.tipLevels.forEach((level, index) => {
+			const levelElement = document.createElement('li');
+			levelElement.classList.add("list-group-item");
+			levelElement.innerHTML = `${level.friendlyName} <span class="badge">%${level.percentage}</span>`;
+			tipLevelsContainer.appendChild(levelElement);
+			levelElement.onclick=()=>{
+				if(isNaN(billAmount.value))return
+				tipAmount.innerHTML= "$" + TipCalculator.calculateTip(parseFloat(billAmount.value),level.percentage);
+			}
+		});
+	}
+
+
+	function loadSettings() {
+
+		settings.Load( (err, loadedSettings) => {
+
+			if (err) {
+				console.error(err);
+				return;
+			}
+
+			headerContentElement.text = settings.headerContent;
+
+			displayTipLevels();
+		});
+	}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Settings</title>
+	<script src="../../../../scripts/buildfire.min.js"></script>
+	<script src="../../../../scripts/tinymce/tinymce.min.js"></script>
+
+	<script src="../../widget/common/BFDataAccess.js"></script>
+	<script src="../../widget/common/Settings.js"></script>
+
+
+	</style>
+</head>
+<body>
+<h2>Settings</h2>
+<textarea id="editor"></textarea>
+
+
+<h3>Tip Levels</h3>
+<div id="tipLevelsContainer"></div>
+<button id="addTipLevel" class="btn btn-primary">Add Tip Level</button>
+
+<br/>
+<button id="saveSettings" class="btn btn-success pull-right">Save</button>
+<script>
+
+	const editorElement = document.getElementById('editor');
+	const saveSettingsButton = document.getElementById('saveSettings');
+	const tipLevelsContainer = document.getElementById('tipLevelsContainer');
+	const addTipLevelButton = document.getElementById('addTipLevel');
+	let settings = new Settings();
+	loadSettings();
+
+	addTipLevelButton.addEventListener('click', () => {
+		const newLevel = {
+			percentage: 0,
+			friendlyName: ''
+		};
+		settings.tipLevels.push(newLevel);
+		displayTipLevels();
+	});
+	function displayTipLevels() {
+		tipLevelsContainer.innerHTML = '';
+		settings.tipLevels.forEach((level, index) => {
+			const levelElement = document.createElement('div');
+			levelElement.innerHTML = `
+<div class="row tipItem">
+      <div class="col-xs-3">
+        <input type="number" class="form-control percentage" value="${level.percentage}" placeholder="Percentage">
+      </div>
+      <div class="col-xs-6">
+        <input type="text" class="form-control friendlyName" value="${level.friendlyName}" placeholder="Friendly Name">
+      </div>
+      <div class="col-xs-3">
+        <button class="delete btn btn-danger">Delete</button>
+      </div>
+    </div>
+    `;
+
+			levelElement.querySelector('.delete').addEventListener('click', () => {
+				settings.tipLevels.splice(index, 1);
+				displayTipLevels();
+			});
+			tipLevelsContainer.appendChild(levelElement);
+		});
+	}
+
+
+	function loadSettings() {
+
+		tinymce.init({
+			selector: "#editor",
+		});
+
+		settings.Load( (err, loadedSettings) => {
+			if (err) {
+				console.error(err);
+				return;
+			}
+
+			editorElement.text = settings.headerContent;
+
+			saveSettingsButton.addEventListener('click', () => {
+
+				settings.headerContent =editorElement.text;
+				settings.tipLevels = [];
+				document.querySelectorAll(".tipItem").forEach(e=>{
+					settings.tipLevels.push({
+						percentage: parseInt(e.querySelector(".percentage").value)
+						, friendlyName: e.querySelector(".friendlyName").value
+					});
+				})
+
+				settings.Save(err => {
+					if (err) {
+						console.error(err);
+						return;
+					}
+					console.log('Settings saved successfully');
+				});
+			});
+			displayTipLevels();
+		});
+	}
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "author": "BuildFire",
+  "pluginName": "Tip Calculator",
+  "pluginDescription": "Tip plugin calculator built with AI",
+  "supportEmail": "support@buildfire.com",
+  "control": {
+    "content": {
+      "enabled": true
+    },
+    "design":{
+      "enabled": false
+    },
+    "settings": {
+      "enabled": true
+    }
+  },
+  "widget": {
+
+  },
+	"cssInjection" : {
+		"enabled": true,
+		"layouts": [
+			{
+				"name": "Layout 1",
+				"imageUrl": "resources/layouts_img/layout1.png",
+				"cssPath": "widget/layouts/site.css"
+			}
+		]
+	},
+  "features": [],
+  "languages": ["en"]
+}
