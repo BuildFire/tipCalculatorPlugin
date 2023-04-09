@@ -1,0 +1,41 @@
+{
+	"mainInfo": "language Settings",
+	"sections": {
+		"mainScreen": {
+			"title": "Main Screen",
+			"info": "This is the main screen of this feature",
+			"labels": {
+				"enterBillAmount": {
+					"title": "Bill Amount Title",
+					"defaultValue": "Enter Bill Amount",
+					"required": true,
+					"inputType": "text",
+					"toolTip": "This is the label before the input on the app screen"
+				},
+				"enterBillAmountPlaceholder": {
+					"title": "Bill Amount Placeholder",
+					"defaultValue": "$100",
+					"inputType": "text",
+					"toolTip": "This the placeholder text in the Bill Amount input control"
+				},
+				"totalLabel": {
+					"title": "Total Amount Title",
+					"placeholder": "Total",
+					"maxLength": 50,
+					"defaultValue": "Total",
+					"inputType": "text",
+					"toolTip": "This is the label before the total of the tip plus the bill is shown"
+				},
+				"currencySymbol": {
+					"title": "Currency Symbol",
+					"placeholder": "$",
+					"maxLength": 5,
+					"defaultValue": "$",
+					"inputType": "text",
+					"toolTip": "Used before amounts"
+				}
+
+			}
+		}
+	}
+}
