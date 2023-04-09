@@ -5,27 +5,31 @@
 	<meta name="buildfire" content="enablePluginJsonLoad">
 
   <!-- JS -->
-  <script src="../../../scripts/buildfire.min.js"></script>
+  <script src="../../../scripts/buildfire.js"></script>
 	<script src="common/BFDataAccess.js"></script>
 	<script src="common/Settings.js"></script>
 	<script src="common/TipCalculator.js"></script>
 </head>
 <body>
 <div id="headerContent"></div>
-<h1>Enter Bill Amount</h1>
-<div class="row billAmount">
-	<div class="col-xs-3">
-		<input id="billAmount" type="number" class="form-control" value="0" placeholder="$100">
+<div id="calcContainer">
+	<h1>Enter Bill Amount</h1>
+	<div class="row billAmountContainer">
+		<div class="col-xs-10">
+			<input id="billAmount" type="number" step="0.01" class="form-control"  placeholder="$100">
+		</div>
 	</div>
+	<ul id="tipLevelsContainer" class="list-group" ></ul>
+	<h1 id="tipAmount"></h1>
+	<h3 id="totalAmount"></h3>
 </div>
-<ul id="tipLevelsContainer" class="list-group" ></ul>
-<h1 id="tipAmount"></h1>
 <script>
 
 	const headerContentElement= document.getElementById('headerContent');
 	const billAmount = document.getElementById('billAmount');
 	const tipLevelsContainer = document.getElementById('tipLevelsContainer');
 	const tipAmount = document.getElementById('tipAmount');
+	const totalAmount = document.getElementById('totalAmount');
 	let settings = new Settings();
 	loadSettings();
 
@@ -40,8 +44,11 @@
 			levelElement.innerHTML = `${level.friendlyName} <span class="badge">%${level.percentage}</span>`;
 			tipLevelsContainer.appendChild(levelElement);
 			levelElement.onclick=()=>{
-				if(isNaN(billAmount.value))return
-				tipAmount.innerHTML= "$" + TipCalculator.calculateTip(parseFloat(billAmount.value),level.percentage);
+				if(isNaN(billAmount.value))return;
+				let bill = parseFloat(billAmount.value) || 0;
+				let tip = TipCalculator.calculateTip(bill,level.percentage);
+				tipAmount.innerHTML= "$" + tip;
+				totalAmount.innerHTML = "total $" + (bill + tip);
 			}
 		});
 	}

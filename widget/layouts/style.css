@@ -1,3 +1,27 @@
-body{
- background-color: red;
+#calcContainer{
+	padding: 1rem ;
+}
+
+.billAmountContainer,#tipAmount{
+	display: flex;
+	justify-content: center;
+	padding: 2rem;
+}
+
+#tipAmount{
+	font-weight: bold;
+}
+
+#billAmount{
+	font-size: xx-large;
+	height: 2em;
+	text-align:center;
+}
+.badge{
+	font-size: large;
+	padding: 5px;
+}
+
+.list-group-item{
+	padding: 2rem;
 }

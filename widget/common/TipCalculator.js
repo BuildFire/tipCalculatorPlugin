@@ -1,8 +1,9 @@
 class TipCalculator {
-	static calculateTip(totalBillAmount, percentage) {
-		if (typeof totalBillAmount !== 'number' || typeof percentage !== 'number') {
-			throw new Error('Both totalBillAmount and percentage should be numbers.');
-		}
+	static calculateTip(totalBillAmount = 0, percentage = 10) {
+
+		if (isNaN( totalBillAmount ) )totalBillAmount=0;
+		if( isNaN( percentage)) percentage=0;
+
 		return totalBillAmount * (percentage / 100);
 	}
 }

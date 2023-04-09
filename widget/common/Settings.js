@@ -4,9 +4,9 @@ class Settings extends BFDataAccess {
 		this.tag = "Settings";
 		this.headerContent = data && data.headerContent || "";
 		this.tipLevels = data && data.tipLevels ? data.tipLevels : [
-			{ percentage: 0, friendlyName: "you did a terrible job" },
-			{ percentage: 10, friendlyName: "you did an ok job" },
-			{ percentage: 50, friendlyName: "you did an amazing job!" }
+			{ percentage: 0, friendlyName: "You did a terrible job" },
+			{ percentage: 10, friendlyName: "You did an ok job" },
+			{ percentage: 50, friendlyName: "You did an amazing job!" }
 		];
 	}
 

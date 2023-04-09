@@ -4,6 +4,16 @@
   "pluginDescription": "Tip plugin calculator built with AI",
   "supportEmail": "support@buildfire.com",
   "control": {
+	  "cssInjection" : {
+		  "enabled": true,
+		  "layouts": [
+			  {
+				  "name": "Test Layout",
+				  "imageUrl": "resources/layouts_img/layout1.png",
+				  "cssPath": "widget/layouts/style.css"
+			  }
+		  ]
+	  },
     "content": {
       "enabled": true
     },
@@ -11,22 +21,12 @@
       "enabled": false
     },
     "settings": {
-      "enabled": true
+      "enabled": false
     }
   },
   "widget": {
 
   },
-	"cssInjection" : {
-		"enabled": true,
-		"layouts": [
-			{
-				"name": "Layout 1",
-				"imageUrl": "resources/layouts_img/layout1.png",
-				"cssPath": "widget/layouts/site.css"
-			}
-		]
-	},
   "features": [],
   "languages": ["en"]
 }
